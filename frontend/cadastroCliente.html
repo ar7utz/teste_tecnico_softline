@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Cliente - Softline</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <div id="navbar"></div>
+
+  <div class="max-w-2xl mx-auto mt-8 px-4">
+    <div class="bg-white rounded shadow p-6">
+      <h1 id="titulo-form" class="text-2xl font-bold text-gray-700 mb-6">Novo Cliente</h1>
+
+      <div class="grid grid-cols-1 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Código</label>
+          <input id="codigo" type="number"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            placeholder="Código do cliente" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Nome</label>
+          <input id="nome" type="text" maxlength="60"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            placeholder="Nome (máx. 60 caracteres)" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Fantasia</label>
+          <input id="fantasia" type="text" maxlength="100"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            placeholder="Nome fantasia (máx. 100 caracteres)" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Documento (CPF ou CNPJ)</label>
+          <input id="documento" type="text" maxlength="18"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            placeholder="000.000.000-00 ou 00.000.000/0000-00" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Endereço</label>
+          <input id="endereco" type="text"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+            placeholder="Endereço completo" />
+        </div>
+      </div>
+
+      <div id="botoes" class="flex gap-3 mt-6">
+        <button onclick="salvar()" id="btn-salvar"
+          class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+          Salvar
+        </button>
+        <button onclick="voltar()"
+          class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">
+          Voltar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/cliente-form.js"></script>
+  <script>carregarNavbar();</script>
+</body>
+</html>

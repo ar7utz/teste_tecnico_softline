@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using infra.softline.Data;
 
@@ -10,9 +11,11 @@ using infra.softline.Data;
 namespace infra.softline.Migrations
 {
     [DbContext(typeof(ApiDBcontext))]
-    partial class ApiDBcontextModelSnapshot : ModelSnapshot
+    [Migration("20260609233200_RemoveEmptySeedAndCreateAgain")]
+    partial class RemoveEmptySeedAndCreateAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,7 +23,7 @@ namespace infra.softline.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-            
+
             modelBuilder.Entity("domain.softline.Entities.Cliente", b =>
                 {
                     b.Property<int>("Id")
