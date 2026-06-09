@@ -1,0 +1,6 @@
+@api.softline_HostAddress = http://localhost:5087
+
+GET {{api.softline_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

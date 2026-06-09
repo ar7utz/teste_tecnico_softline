@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos - Softline</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <div id="navbar"></div>
+
+  <div class="max-w-6xl mx-auto mt-8 px-4">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-700">Produtos</h1>
+      <button onclick="novoProduto()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        + Novo Produto
+      </button>
+    </div>
+
+    <div class="bg-white rounded shadow overflow-x-auto">
+      <table class="w-full text-sm text-left">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="px-4 py-3">Código</th>
+            <th class="px-4 py-3">Descrição</th>
+            <th class="px-4 py-3">Cód. Barras</th>
+            <th class="px-4 py-3">Valor Venda</th>
+            <th class="px-4 py-3">Peso Bruto</th>
+            <th class="px-4 py-3">Peso Líquido</th>
+            <th class="px-4 py-3">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-produtos">
+          <tr>
+            <td colspan="7" class="text-center py-6 text-gray-400">Carregando...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/produtos.js"></script>
+  <script>carregarNavbar();</script>
+
+</body>
+</html>
