@@ -1,63 +1,45 @@
 verificarLogin();
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
-const modo = params.get("modo") || "novo";
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const titulo = document.getElementById("titulo-form");
-  const btnSalvar = document.getElementById("btn-salvar");
-  const campos = ["codigo", "descricao", "codigoBarras", "valorVenda", "pesoBruto", "pesoLiquido"];
-
-  if (modo === "visualizar") {
-    titulo.textContent = "Visualizar Produto";
-    btnSalvar.classList.add("hidden");
-    campos.forEach(c => document.getElementById(c).disabled = true);
-  } else if (modo === "editar") {
-    titulo.textContent = "Editar Produto";
-  }
-
-  if (id) {
-    const res = await fetch(`${API_URL}/Produto/${id}`, { headers: headers() });
-    if (res.status === 401) { window.location.href = "login.html"; return; }
-    if (!res.ok) { alert("Produto não encontrado."); voltar(); return; }
-    const p = await res.json();
-    document.getElementById("codigo").value = p.codigo;
-    document.getElementById("descricao").value = p.descricao;
-    document.getElementById("codigoBarras").value = p.codigoBarras;
-    document.getElementById("valorVenda").value = p.valorVenda;
-    document.getElementById("pesoBruto").value = p.pesoBruto;
-    document.getElementById("pesoLiquido").value = p.pesoLiquido;
-  }
-});
-
-async function salvar() {
-  const body = {
-    codigo: parseInt(document.getElementById("codigo").value),
-    descricao: document.getElementById("descricao").value,
-    codigoBarras: document.getElementById("codigoBarras").value,
-    valorVenda: parseFloat(document.getElementById("valorVenda").value),
-    pesoBruto: parseFloat(document.getElementById("pesoBruto").value),
-    pesoLiquido: parseFloat(document.getElementById("pesoLiquido").value)
-  };
-
-  if (!body.descricao) { alert("Preencha a descrição."); return; }
-
-  const url = id ? `${API_URL}/Produto/${id}` : `${API_URL}/Produto`;
-  const method = id ? "PUT" : "POST";
-
-  const res = await fetch(url, {
-    method,
-    headers: headers(),
-    body: JSON.stringify(body)
-  });
-
+async function carregarProdutos() {
+  const res = await fetch(`${API_URL}/Produto`, { headers: headers() });
   if (res.status === 401) { window.location.href = "login.html"; return; }
-  if (!res.ok) { alert("Erro ao salvar produto."); return; }
 
-  window.location.href = "produtos.html";
+  const produtos = await res.json();
+  const tbody = document.getElementById("tabela-produtos");
+  tbody.innerHTML = "";
+
+  if (produtos.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="text-center py-6 text-gray-400">Nenhum produto cadastrado.</td></tr>`;
+    return;
+  }
+
+  produtos.forEach(p => {
+    tbody.innerHTML += `
+      <tr class="border-b hover:bg-gray-50">
+        <td class="px-4 py-2">${p.codigo}</td>
+        <td class="px-4 py-2">${p.descricao}</td>
+        <td class="px-4 py-2">${p.codigoBarras || "-"}</td>
+        <td class="px-4 py-2">R$ ${Number(p.valorVenda).toFixed(2)}</td>
+        <td class="px-4 py-2">${Number(p.pesoBruto).toFixed(3)}</td>
+        <td class="px-4 py-2">${Number(p.pesoLiquido).toFixed(3)}</td>
+        <td class="px-4 py-2 flex gap-2">
+          <button onclick="visualizarProduto(${p.id})" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">Ver</button>
+          <button onclick="editarProduto(${p.id})" class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">Editar</button>
+          <button onclick="deletarProduto(${p.id})" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Deletar</button>
+        </td>
+      </tr>
+    `;
+  });
 }
 
-function voltar() {
-  window.location.href = "produtos.html";
+async function deletarProduto(id) {
+  if (!confirm("Tem certeza que deseja deletar este produto?")) return;
+  const res = await fetch(`${API_URL}/Produto/${id}`, { method: "DELETE", headers: headers() });
+  if (res.ok) { carregarProdutos(); } else { alert("Erro ao deletar produto."); }
 }
+
+function visualizarProduto(id) { window.location.href = `cadastroProduto.html?id=${id}&modo=visualizar`; }
+function editarProduto(id)     { window.location.href = `cadastroProduto.html?id=${id}&modo=editar`; }
+function novoProduto()         { window.location.href = "cadastroProduto.html?modo=novo"; }
+
+carregarProdutos();
