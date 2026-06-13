@@ -33,17 +33,27 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-600 mb-1">Valor de Venda</label>
-          <input id="valorVenda" type="number" step="0.01" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="0,00" />
+          <input id="valorVenda" type="text" inputmode="numeric"
+            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="0,00" maxlength="18" />
+          <!-- Valor numérico real enviado ao backend -->
+          <input id="valorVenda_raw" type="hidden" value="0" />
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-600 mb-1">Peso Bruto</label>
-            <input id="pesoBruto" type="number" step="0.001" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="0,000" />
+            <input id="pesoBruto" type="text" inputmode="numeric"
+              class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="0,000" maxlength="18" />
+            <input id="pesoBruto_raw" type="hidden" value="0" />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-600 mb-1">Peso Líquido</label>
-            <input id="pesoLiquido" type="number" step="0.001" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="0,000" />
+            <input id="pesoLiquido" type="text" inputmode="numeric"
+              class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="0,000" maxlength="18" />
+            <input id="pesoLiquido_raw" type="hidden" value="0" />
           </div>
         </div>
 
