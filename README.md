@@ -44,6 +44,14 @@ API.softline/
 }
 ```
 
+2.1 - Crie o banco de dados
+
+Abra o terminal MySQL e rode o comando:
+
+```SQL
+CREATE DATABASE softline
+```
+
 3 - Rodar as Migrations
  
 As migrations criam todas as tabelas e inserem os dados iniciais (produtos e clientes de exemplo) automaticamente.
